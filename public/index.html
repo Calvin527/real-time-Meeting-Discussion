@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-Time Meeting Discussion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ===== JOIN SCREEN ===== -->
+    <section id="join-screen" class="screen">
+      <div class="join-card wide">
+        <div class="join-mark">
+          <span class="mark-dot"></span>
+          <span class="mark-label">MAROKA MEETING DISCUSSION</span>
+        </div>
+        <h1>Real-Time Meeting Discussion</h1>
+        <p class="join-sub">
+          Join MEETING DISCUSSION to discuss daily workflow.
+        </p>
+
+        <form id="join-form" autocomplete="off">
+          <label for="username">Your name</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            placeholder="e.g. Calvin"
+            maxlength="20"
+            required
+          />
+
+          <label for="project">Project name</label>
+          <input
+            id="project"
+            name="project"
+            type="text"
+            placeholder="e.g. Honours ASR Project"
+            maxlength="60"
+            value="General Project"
+          />
+
+          <label for="room">Discussion room</label>
+          <input
+            id="room"
+            name="room"
+            type="text"
+            placeholder="e.g. sprint-planning"
+            maxlength="40"
+            required
+            value="general"
+          />
+
+          <label for="template">Meeting template</label>
+          <select id="template" name="template">
+            <option value="standup">Standup</option>
+            <option value="retro">Retro</option>
+            <option value="brainstorm">Brainstorm</option>
+            <option value="client-call">Client Call</option>
+            <option value="general">General Meeting</option>
+          </select>
+
+          <button type="submit" id="join-btn">
+            <span>Join discussion</span>
+          </button>
+          <p id="join-error" class="join-error" role="alert"></p>
+        </form>
+      </div>
+      <p class="join-footer">
+        Chats, decisions, tasks, and shared files are saved locally on the
+        server.
+      </p>
+    </section>
+
+    <!-- ===== CHAT SCREEN ===== -->
+    <section id="chat-screen" class="screen hidden">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="join-mark small">
+            <span class="mark-dot"></span>
+            <span class="mark-label">DISCUSSION</span>
+          </div>
+          <button id="leave-btn" title="Leave discussion">Leave</button>
+        </div>
+
+        <div class="channel-info">
+          <span class="channel-label">Project</span>
+          <span id="project-name" class="project-name">General Project</span>
+          <span class="channel-label room-label">Discussion room</span>
+          <span id="channel-name" class="channel-name">#general</span>
+        </div>
+
+        <div class="meeting-actions">
+          <button id="download-record-btn" type="button">
+            Download transcript
+          </button>
+          <button id="download-recap-btn" type="button">Download recap</button>
+          <span id="record-count" class="record-count">0 saved chats</span>
+        </div>
+
+        <div class="online-header">
+          <span>Online</span>
+          <span id="online-count" class="online-count">0</span>
+        </div>
+        <ul id="user-list" class="user-list"></ul>
+        <p class="mention-tip">
+          Tip: click a person’s name to mention them. Use
+          <strong>/decision</strong> or <strong>/task @name</strong>.
+        </p>
+
+        <div class="connection-status" id="connection-status">
+          <span class="status-dot"></span>
+          <span id="connection-text">Connecting…</span>
+        </div>
+      </aside>
+
+      <main class="chat-main">
+        <header class="chat-header">
+          <div>
+            <h2 id="chat-title">#general</h2>
+            <p id="chat-you">connected as —</p>
+            <p id="online-summary" class="online-summary">0 online users</p>
+          </div>
+          <div id="live-reaction-pop" class="live-reaction-pop hidden"></div>
+        </header>
+
+        <div id="messages" class="messages" aria-live="polite"></div>
+
+        <div id="typing-indicator" class="typing-indicator"></div>
+
+        <div id="reply-preview" class="reply-preview hidden">
+          <div>
+            <span class="reply-label"
+              >Replying to <strong id="reply-author"></strong
+            ></span>
+            <p id="reply-text"></p>
+          </div>
+          <button id="cancel-reply-btn" type="button" aria-label="Cancel reply">
+            ×
+          </button>
+        </div>
+
+        <div class="composer-toolbar">
+          <button id="emoji-toggle-btn" type="button" title="Add emoji">
+            😊 Emoji
+          </button>
+          <button id="record-voice-btn" type="button" title="Record voice note">
+            🎙 Voice note
+          </button>
+          <button
+            id="attach-file-btn"
+            type="button"
+            title="Share document or image"
+          >
+            📎 Share file
+          </button>
+          <input
+            id="file-input"
+            type="file"
+            accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,audio/*"
+            hidden
+          />
+          <span id="upload-status" class="upload-status"></span>
+        </div>
+        <div
+          id="emoji-picker"
+          class="emoji-picker hidden"
+          aria-label="Emoji picker"
+        ></div>
+
+        <form id="message-form" class="message-form" autocomplete="off">
+          <input
+            id="message-input"
+            type="text"
+            placeholder="Type a message, use @name to mention someone…"
+            maxlength="800"
+          />
+          <button type="submit" id="send-btn" aria-label="Send message">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 11.5L21 3L13.5 21L11 13L3 11.5Z"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </form>
+      </main>
+
+      <section class="meeting-panel">
+        <div class="panel-card meeting-template-card">
+          <div class="panel-heading">
+            <h3>Meeting template</h3>
+            <span id="template-name" class="panel-badge">Standup</span>
+          </div>
+          <ol id="agenda-list" class="agenda-list"></ol>
+        </div>
+
+        <div class="panel-card summary-card">
+          <div class="panel-heading">
+            <h3>Live summary</h3>
+            <span class="panel-badge">auto</span>
+          </div>
+          <pre id="summary-text" class="summary-text">No summary yet.</pre>
+          <div class="panel-actions-row">
+            <button id="missed-btn" type="button">What did I miss?</button>
+            <button id="copy-summary-btn" type="button">Copy</button>
+          </div>
+          <p class="panel-note">
+            This is an AI-style local rolling summary. It works without API
+            keys.
+          </p>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-heading">
+            <h3>Decision log</h3>
+            <span id="decision-count" class="panel-badge">0</span>
+          </div>
+          <ul id="decision-list" class="artifact-list"></ul>
+          <form id="decision-form" class="mini-form">
+            <input
+              id="decision-input"
+              type="text"
+              placeholder="Add decision manually…"
+              maxlength="250"
+            />
+            <button type="submit">Add</button>
+          </form>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-heading">
+            <h3>Tasks</h3>
+            <span id="task-count" class="panel-badge">0</span>
+          </div>
+          <ul id="task-list" class="artifact-list"></ul>
+          <p class="panel-note">
+            Tasks are auto-created. e.g.
+            <strong>@Calvin please review the file</strong>.
+          </p>
+        </div>
+
+        <div class="panel-card integration-card">
+          <div class="panel-heading">
+            <h3>Docs / Drive</h3>
+            <span class="panel-badge">export</span>
+          </div>
+          <p class="panel-note">
+            Use <strong>Download recap</strong> to get a Google Docs /
+            Drive-ready Markdown recap.
+          </p>
+        </div>
+      </section>
+    </section>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
