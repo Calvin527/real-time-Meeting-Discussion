@@ -1323,157 +1323,151 @@ body::before {
 #messages {
   scroll-behavior: smooth;
 }
+
 /* ============================= */
-/* Mobile Full-Screen Fix */
+/* Correct Mobile Full-Screen Fix */
 /* ============================= */
 
 html,
 body {
   width: 100%;
   min-height: 100%;
-  margin: 0;
   overflow-x: hidden;
 }
 
-/* Main app wrapper */
-.app,
-#app,
-.chat-app,
-.chat-screen,
-.chat-container {
-  width: 100%;
+/* Better mobile viewport support */
+.screen {
   min-height: 100dvh;
 }
 
-/* Use modern mobile viewport height */
-@supports (height: 100dvh) {
-  .app,
-  #app,
-  .chat-app,
-  .chat-screen,
-  .chat-container {
-    min-height: 100dvh;
-  }
-}
-
-/* Phone and tablet layout */
-@media (max-width: 768px) {
+/* Main phone layout */
+@media (max-width: 780px) {
   html,
   body {
     width: 100%;
+    height: 100%;
     min-height: 100dvh;
-    overflow-x: hidden;
-  }
-
-  .app,
-  #app,
-  .chat-app,
-  .chat-screen,
-  .chat-container {
-    width: 100%;
-    min-height: 100dvh;
-    height: 100dvh;
     overflow: hidden;
   }
 
-  /* Main chat layout becomes vertical on phone */
-  .chat-layout,
-  .main-layout,
-  .dashboard,
-  .meeting-layout {
-    display: flex;
-    flex-direction: column;
+  /* Join screen must scroll on small phones */
+  #join-screen {
+    min-height: 100dvh;
+    height: auto;
+    overflow-y: auto;
+    justify-content: flex-start;
+    padding: 20px;
+  }
+
+  .join-card {
+    width: 100%;
+    max-width: 420px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* Main chat screen fills the phone */
+  #chat-screen {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
     width: 100%;
     height: 100dvh;
+    min-height: 100dvh;
     overflow: hidden;
   }
 
-  /* Sidebar should not take permanent desktop space */
-  .sidebar,
-  .left-panel,
-  .right-panel {
+  /* Top sidebar becomes horizontal */
+  .sidebar {
     width: 100%;
     max-width: 100%;
+    min-height: auto;
+    max-height: 95px;
+    overflow-x: auto;
+    overflow-y: hidden;
     flex-shrink: 0;
   }
 
-  /* Main chat area fills remaining phone screen */
-  .chat-main,
-  .main-chat,
-  .conversation,
-  .messages-panel {
-    flex: 1;
+  /* Main chat fills remaining space */
+  .chat-main {
     min-height: 0;
-    width: 100%;
+    height: 100%;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
   }
 
-  /* Messages scroll inside the phone screen */
+  .chat-header {
+    flex-shrink: 0;
+  }
+
+  .composer-toolbar,
+  .emoji-picker,
+  .reply-preview,
+  .typing-indicator,
+  .message-form {
+    flex-shrink: 0;
+  }
+
+  /* Messages scroll inside the screen */
   .messages,
-  #messages,
-  .chat-messages,
-  .message-list {
+  #messages {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 12px;
   }
 
-  /* Input area stays visible at the bottom */
-  .message-form,
-  .chat-form,
-  .composer,
-  .input-area {
+  /* Input remains visible */
+  .message-form {
+    position: relative;
+    bottom: auto;
+    width: 100%;
+    padding: 10px 12px 14px;
+    background: var(--ink);
+  }
+
+  #message-input {
+    min-width: 0;
+  }
+
+  #send-btn {
     flex-shrink: 0;
-    width: 100%;
-    position: sticky;
-    bottom: 0;
-    z-index: 20;
-    background: inherit;
   }
 
-  /* Prevent wide elements from breaking the screen */
-  input,
-  textarea,
-  select,
-  button {
-    max-width: 100%;
+  .composer-toolbar,
+  .emoji-picker {
+    padding-left: 12px;
+    padding-right: 12px;
+    overflow-x: auto;
   }
 
-  img,
-  video,
-  audio {
-    max-width: 100%;
+  .composer-toolbar {
+    flex-wrap: nowrap;
   }
 
-  .message,
-  .chat-message {
-    max-width: 100%;
-    word-wrap: break-word;
+  .composer-toolbar button {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .msg {
+    max-width: 92%;
+  }
+
+  .msg-bubble {
     overflow-wrap: anywhere;
-  }
-}
-@media (max-width: 768px) {
-  .join-screen,
-  .login-screen,
-  .welcome-screen {
-    min-height: 100dvh;
-    width: 100%;
-    overflow-y: auto;
-    padding: 20px;
-    box-sizing: border-box;
+    word-break: break-word;
   }
 
-  .join-card,
-  .login-card,
-  .welcome-card {
+  .attachment img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .attachment audio {
     width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
-    box-sizing: border-box;
+    max-width: 260px;
   }
 }
