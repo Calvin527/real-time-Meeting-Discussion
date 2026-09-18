@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>Real-Time Meeting Discussion</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
@@ -218,10 +221,6 @@
             <button id="missed-btn" type="button">What did I miss?</button>
             <button id="copy-summary-btn" type="button">Copy</button>
           </div>
-          <p class="panel-note">
-            This is an AI-style local rolling summary. It works without API
-            keys.
-          </p>
         </div>
 
         <div class="panel-card">
@@ -247,10 +246,6 @@
             <span id="task-count" class="panel-badge">0</span>
           </div>
           <ul id="task-list" class="artifact-list"></ul>
-          <p class="panel-note">
-            Tasks are auto-created. e.g.
-            <strong>@Calvin please review the file</strong>.
-          </p>
         </div>
 
         <div class="panel-card integration-card">
@@ -258,10 +253,6 @@
             <h3>Docs / Drive</h3>
             <span class="panel-badge">export</span>
           </div>
-          <p class="panel-note">
-            Use <strong>Download recap</strong> to get a Google Docs /
-            Drive-ready Markdown recap.
-          </p>
         </div>
       </section>
     </section>

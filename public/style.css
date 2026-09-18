@@ -1323,3 +1323,157 @@ body::before {
 #messages {
   scroll-behavior: smooth;
 }
+/* ============================= */
+/* Mobile Full-Screen Fix */
+/* ============================= */
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Main app wrapper */
+.app,
+#app,
+.chat-app,
+.chat-screen,
+.chat-container {
+  width: 100%;
+  min-height: 100dvh;
+}
+
+/* Use modern mobile viewport height */
+@supports (height: 100dvh) {
+  .app,
+  #app,
+  .chat-app,
+  .chat-screen,
+  .chat-container {
+    min-height: 100dvh;
+  }
+}
+
+/* Phone and tablet layout */
+@media (max-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  .app,
+  #app,
+  .chat-app,
+  .chat-screen,
+  .chat-container {
+    width: 100%;
+    min-height: 100dvh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  /* Main chat layout becomes vertical on phone */
+  .chat-layout,
+  .main-layout,
+  .dashboard,
+  .meeting-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  /* Sidebar should not take permanent desktop space */
+  .sidebar,
+  .left-panel,
+  .right-panel {
+    width: 100%;
+    max-width: 100%;
+    flex-shrink: 0;
+  }
+
+  /* Main chat area fills remaining phone screen */
+  .chat-main,
+  .main-chat,
+  .conversation,
+  .messages-panel {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Messages scroll inside the phone screen */
+  .messages,
+  #messages,
+  .chat-messages,
+  .message-list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
+
+  /* Input area stays visible at the bottom */
+  .message-form,
+  .chat-form,
+  .composer,
+  .input-area {
+    flex-shrink: 0;
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+    background: inherit;
+  }
+
+  /* Prevent wide elements from breaking the screen */
+  input,
+  textarea,
+  select,
+  button {
+    max-width: 100%;
+  }
+
+  img,
+  video,
+  audio {
+    max-width: 100%;
+  }
+
+  .message,
+  .chat-message {
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+@media (max-width: 768px) {
+  .join-screen,
+  .login-screen,
+  .welcome-screen {
+    min-height: 100dvh;
+    width: 100%;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .join-card,
+  .login-card,
+  .welcome-card {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+}
