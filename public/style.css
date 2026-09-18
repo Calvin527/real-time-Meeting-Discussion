@@ -1471,3 +1471,244 @@ body {
     max-width: 260px;
   }
 }
+/* ===================================================
+   FINAL MOBILE FIX: show side panels on phone
+   =================================================== */
+
+@media (max-width: 780px) {
+  html,
+  body {
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  body {
+    position: relative;
+  }
+
+  /* Allow the full mobile page to scroll */
+  #chat-screen {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Top mobile bar */
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    height: auto;
+    max-height: none;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 14px;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    overflow: visible;
+    gap: 12px;
+  }
+
+  .sidebar-top {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  /* Show important meeting information on mobile */
+  .channel-info {
+    display: flex;
+    padding-bottom: 12px;
+    margin-bottom: 0;
+  }
+
+  /* Show download transcript and recap on mobile */
+  .meeting-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    padding-bottom: 12px;
+    margin-bottom: 0;
+    overflow-x: auto;
+  }
+
+  .meeting-actions button {
+    flex: 1;
+    min-width: 150px;
+    white-space: nowrap;
+  }
+
+  .record-count {
+    display: none;
+  }
+
+  .online-header {
+    display: flex;
+    margin-bottom: 6px;
+  }
+
+  .user-list {
+    display: flex;
+    flex-direction: row;
+    flex: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 6px;
+    padding-bottom: 4px;
+  }
+
+  .user-list li {
+    min-width: max-content;
+    background: var(--ink-panel);
+    border: 1px solid var(--line);
+  }
+
+  .user-list li span.username-text {
+    display: inline;
+  }
+
+  .mention-tip,
+  .connection-status {
+    display: none;
+  }
+
+  /* Chat section */
+  .chat-main {
+    width: 100%;
+    min-height: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .chat-header {
+    flex-shrink: 0;
+    padding: 16px;
+  }
+
+  /* Give messages a phone-friendly scroll area */
+  .messages,
+  #messages {
+    flex: none;
+    height: 48dvh;
+    min-height: 300px;
+    max-height: 520px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 18px 16px 10px;
+  }
+
+  .typing-indicator {
+    flex-shrink: 0;
+    padding: 0 16px 4px;
+  }
+
+  .reply-preview {
+    flex-shrink: 0;
+    margin: 0 16px;
+  }
+
+  .composer-toolbar {
+    flex-shrink: 0;
+    padding: 12px 16px 0;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .composer-toolbar button {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .emoji-picker {
+    flex-shrink: 0;
+    padding: 10px 16px 0;
+    overflow-x: auto;
+  }
+
+  .message-form {
+    flex-shrink: 0;
+    display: flex;
+    gap: 10px;
+    padding: 12px 16px 16px;
+    background: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+
+  #message-input {
+    min-width: 0;
+  }
+
+  #send-btn {
+    flex-shrink: 0;
+  }
+
+  .msg {
+    max-width: 92%;
+  }
+
+  .msg-bubble {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .attachment img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .attachment audio {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  /* Show right-side meeting panel below chat on phone */
+  .meeting-panel {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    height: auto;
+    overflow: visible;
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding: 14px;
+    gap: 14px;
+    background: var(--ink-raised);
+  }
+
+  .panel-card {
+    width: 100%;
+  }
+
+  .summary-text {
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  .artifact-list {
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  .panel-actions-row,
+  .mini-form {
+    flex-wrap: wrap;
+  }
+
+  .panel-actions-row button,
+  .mini-form button {
+    min-height: 38px;
+  }
+
+  .mini-form input {
+    min-width: 0;
+  }
+}
